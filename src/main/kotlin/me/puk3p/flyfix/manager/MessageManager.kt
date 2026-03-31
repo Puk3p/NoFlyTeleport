@@ -6,15 +6,19 @@ import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
+import java.io.IOException
 
-class MessageManager(private val plugin: JavaPlugin) : MessageProvider {
+class MessageManager(plugin: JavaPlugin) : MessageProvider {
     private var messagesConfig: FileConfiguration
     private val messagesFile: File
 
     init {
         messagesFile = File(plugin.dataFolder, "messages.yml")
         if (!messagesFile.exists()) {
-            messagesFile.parentFile.mkdirs()
+            val parentDir = messagesFile.parentFile
+            if (!parentDir.exists() && !parentDir.mkdirs()) {
+                throw IOException("Failed to create directory: $parentDir")
+            }
             plugin.saveResource("messages.yml", false)
         }
         messagesConfig = YamlConfiguration.loadConfiguration(messagesFile)
