@@ -1,0 +1,17 @@
+name: Puk3pFlyFix
+version: ${project.version}
+main: me.puk3p.flyfix.Puk3pFlyFix
+author: Puk3p
+description: Lightweight plugin to patch teleportation flight bugs
+
+commands:
+  flyfix:
+    description: Main command for Puk3pFlyFix
+    aliases: [ffix]
+permissions:
+  puk3pflyfix.bypass:
+    description: Allows a player to keep fly on teleport
+    default: op
+  puk3pflyfix.admin:
+    description: Allows usage of admin commands like reload
+    default: op

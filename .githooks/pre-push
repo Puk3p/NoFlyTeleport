@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#
+# Pre-push hook for Puk3pFlyFix
+# Quality gate: formatting + compile + tests before pushing.
+# SpotBugs runs on CI only (requires JDK 17).
+#
+
+set -e
+
+echo "🚀 Running pre-push checks..."
+
+# Step 1 — Code formatting (Spotless / ktlint)
+echo "🎨 Step 1: Checking code formatting..."
+if ! mvn spotless:check --batch-mode --no-transfer-progress -q 2>&1; then
+    echo "❌ Formatting issues found. Run 'mvn spotless:apply' to fix."
+    exit 1
+fi
+
+# Step 2 — Compile
+echo "📦 Step 2: Compiling..."
+if ! mvn clean compile --batch-mode --no-transfer-progress -q 2>&1; then
+    echo "❌ Compilation failed. Fix errors before pushing."
+    exit 1
+fi
+
+# Step 3 — Unit tests
+echo "🧪 Step 3: Running tests..."
+if ! mvn test --batch-mode --no-transfer-progress -q 2>&1; then
+    echo "❌ Tests failed. Fix failing tests before pushing."
+    exit 1
+fi
+
+# Note: SpotBugs runs on CI with JDK 17 (not locally)
+echo "✅ All pre-push checks passed! Pushing..."
+exit 0

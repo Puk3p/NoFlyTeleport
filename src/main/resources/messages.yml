@@ -1,0 +1,4 @@
+fly-disabled: "&c&l[!] &7Your flight has been disabled due to teleportation."
+no-permission: "&cYou do not have permission to use this command."
+reload-success: "&a[Puk3pFlyFix] Configuration and messages reloaded successfully!"
+invalid-command: "&cUsage: /flyfix reload"
