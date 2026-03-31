@@ -3,6 +3,7 @@ version: ${project.version}
 main: me.puk3p.flyfix.Puk3pFlyFix
 author: Puk3p
 description: Lightweight plugin to patch teleportation flight bugs
+softdepend: [PremiumVanish]
 
 commands:
   flyfix:

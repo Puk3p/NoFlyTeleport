@@ -14,7 +14,8 @@ class Puk3pFlyFix : JavaPlugin() {
     override fun onEnable() {
         // Composition root — wire abstractions to implementations
         val messageProvider: MessageProvider = MessageManager(this)
-        val permissionChecker: PermissionChecker = BukkitPermissionChecker()
+        val vanishAvailable = server.pluginManager.getPlugin("PremiumVanish") != null
+        val permissionChecker: PermissionChecker = BukkitPermissionChecker(vanishAvailable)
         val flightHandler: FlightHandler = PlayerFlightHandler(messageProvider)
 
         // Register Listeners

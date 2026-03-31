@@ -15,7 +15,7 @@ class BukkitPermissionCheckerTest {
 
     @BeforeEach
     fun setUp() {
-        checker = BukkitPermissionChecker()
+        checker = BukkitPermissionChecker(vanishAvailable = false)
         player = mock()
     }
 
@@ -43,6 +43,14 @@ class BukkitPermissionCheckerTest {
         whenever(player.gameMode).thenReturn(GameMode.SURVIVAL)
         whenever(player.hasPermission("puk3pflyfix.bypass")).thenReturn(false)
         assertFalse(checker.canBypass(player))
+    }
+
+    @Test
+    fun `survival player without vanish still checked for permissions`() {
+        val noVanishChecker = BukkitPermissionChecker(vanishAvailable = false)
+        whenever(player.gameMode).thenReturn(GameMode.SURVIVAL)
+        whenever(player.hasPermission("puk3pflyfix.bypass")).thenReturn(false)
+        assertFalse(noVanishChecker.canBypass(player))
     }
 
     @Test
