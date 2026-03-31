@@ -1,10 +1,10 @@
-# 🦅 Puk3pFlyFix
+# Puk3pFlyFix
 
 **Puk3pFlyFix** is a lightweight and efficient Minecraft 1.8 plugin created to patch teleportation flight bugs. It automatically disables a player's flight mode whenever they teleport, preventing movement glitches and unfair advantages.
 
 ---
 
-## ✨ Features
+## Features
 
 - **Automatic Fly Removal** — Instantly disables flight mode the moment a player teleports to a new location.
 - **Bug Prevention** — Stops players from bypassing server restrictions or glitching through blocks after a teleport.
@@ -14,7 +14,7 @@
 
 ---
 
-## 📦 Installation
+## Installation
 
 1. Download the latest `Puk3pFlyFix-x.x.x.jar` from the [Releases](../../releases) page.
 2. Place the JAR file into your server's `plugins/` directory.
@@ -23,7 +23,7 @@
 
 ---
 
-## � Commands
+## Commands
 
 | Command           | Description                          | Permission         |
 |-------------------|--------------------------------------|--------------------|
@@ -33,7 +33,7 @@
 
 ---
 
-## �🔒 Permissions
+## Permissions
 
 | Permission             | Description                                | Default |
 |------------------------|--------------------------------------------|---------|
@@ -42,7 +42,7 @@
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 The plugin listens for `PlayerTeleportEvent`. When a player teleports:
 
@@ -52,7 +52,7 @@ The plugin listens for `PlayerTeleportEvent`. When a player teleports:
 
 ---
 
-## 🏗️ Architecture (SOLID)
+## Architecture (SOLID)
 
 The project follows **SOLID** principles with clean separation of concerns:
 
@@ -69,7 +69,7 @@ All classes depend on **interfaces** (`FlightHandler`, `PermissionChecker`, `Mes
 
 ---
 
-## 🛠️ Building from Source
+## Building from Source
 
 **Requirements:** JDK 17+ (compiles to Java 8 bytecode), Maven 3.6+
 
@@ -83,7 +83,7 @@ The compiled JAR will be in `target/Puk3pFlyFix-<version>.jar`.
 
 ---
 
-## 🔄 CI/CD
+## CI/CD
 
 This project uses **GitHub Actions** for continuous integration and delivery.
 
@@ -103,7 +103,7 @@ Runs the same 5 quality steps, then creates a **GitHub Release** with `Puk3pFlyF
 
 ---
 
-## 🪝 Git Hooks
+## Git Hooks
 
 Two hooks are included in `.githooks/`:
 
@@ -130,7 +130,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
