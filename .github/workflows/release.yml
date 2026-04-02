@@ -68,7 +68,6 @@ jobs:
           JSON_PAYLOAD=$(cat <<EOF
           {
             "username": "Puk3p CI/CD",
-            "avatar_url": "https://cdn-icons-png.flaticon.com/512/5968/5968705.png",
             "embeds": [
               {
                 "title": "✨ Puk3pFlyFix — Fresh Build Available",
@@ -92,7 +91,7 @@ jobs:
                   }
                 ],
                 "thumbnail": {
-                  "url": "https://cdn-icons-png.flaticon.com/512/337/337946.png"
+                  "url": "https://cdn-icons-png.flaticon.com/512/226/226777.png"
                 },
                 "footer": {
                   "text": "Puk3p Automated Build System"
