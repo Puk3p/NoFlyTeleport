@@ -60,50 +60,37 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: "Step 7: Upload to Discord Thread with Premium Embed"
+      - name: "Step 7: Post Discord Embed"
         run: |
-          JAR_FILE=$(ls target/Puk3pFlyFix-*.jar | head -n 1)
-          JAR_NAME=$(basename "$JAR_FILE")
+          JAR_NAME=$(basename $(ls target/Puk3pFlyFix-*.jar | head -n 1))
+          WEBHOOK="${{ secrets.URL_WEBHOOK_OPERATOR }}?thread_id=1489296880713076869"
           
-          JSON_PAYLOAD=$(cat <<EOF
-          {
+          curl -X POST -H "Content-Type: application/json" -d '{
             "username": "Puk3p CI/CD",
+            "content": "<@&'"${{ secrets.OPERATOR_ROLE_ID }}"'> New build available! ⬇️",
             "embeds": [
               {
                 "title": "✨ Puk3pFlyFix — Fresh Build Available",
                 "description": "**Deployment completed successfully**\nA new plugin version has just been generated and uploaded automatically.",
                 "color": 10181046,
                 "fields": [
-                  {
-                    "name": "🔖 Version",
-                    "value": "\`${{ steps.version.outputs.VERSION }}\`",
-                    "inline": true
-                  },
-                  {
-                    "name": "📂 File",
-                    "value": "\`$JAR_NAME\`",
-                    "inline": true
-                  },
-                  {
-                    "name": "⚙️ Pipeline",
-                    "value": "\`GitHub Actions\`",
-                    "inline": true
-                  }
+                  {"name": "🔖 Version", "value": "`'"${{ steps.version.outputs.VERSION }}"'`", "inline": true},
+                  {"name": "📂 File", "value": "`'"$JAR_NAME"'`", "inline": true},
+                  {"name": "⚙️ Pipeline", "value": "`GitHub Actions`", "inline": true}
                 ],
-                "thumbnail": {
-                  "url": "https://cdn-icons-png.flaticon.com/512/226/226777.png"
-                },
-                "footer": {
-                  "text": "Puk3p Automated Build System"
-                },
-                "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                "thumbnail": {"url": "https://cdn-icons-png.flaticon.com/512/226/226777.png"},
+                "footer": {"text": "Puk3p Automated Build System"},
+                "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"
               }
             ]
-          }
-          EOF
-          )
+          }' "$WEBHOOK"
+
+      - name: "Step 8: Upload JAR to Discord"
+        run: |
+          JAR_FILE=$(ls target/Puk3pFlyFix-*.jar | head -n 1)
+          WEBHOOK="${{ secrets.URL_WEBHOOK_OPERATOR }}?thread_id=1489296880713076869"
           
           curl -X POST \
                -F "file=@$JAR_FILE" \
-               -F "payload_json=$JSON_PAYLOAD" \
-               "${{ secrets.URL_WEBHOOK_OPERATOR }}?thread_id=1489296880713076869"
+               -F 'payload_json={"username":"Puk3p CI/CD"}' \
+               "$WEBHOOK"
