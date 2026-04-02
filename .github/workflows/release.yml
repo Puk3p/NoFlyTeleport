@@ -77,17 +77,17 @@ jobs:
                 "fields": [
                   {
                     "name": "🔖 Version",
-                    "value": "`${{ steps.version.outputs.VERSION }}`",
+                    "value": "\`${{ steps.version.outputs.VERSION }}\`",
                     "inline": true
                   },
                   {
                     "name": "📂 File",
-                    "value": "`$JAR_NAME`",
+                    "value": "\`$JAR_NAME\`",
                     "inline": true
                   },
                   {
                     "name": "⚙️ Pipeline",
-                    "value": "`GitHub Actions`",
+                    "value": "\`GitHub Actions\`",
                     "inline": true
                   }
                 ],
