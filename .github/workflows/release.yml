@@ -107,4 +107,4 @@ jobs:
           curl -X POST \
                -F "file=@$JAR_FILE" \
                -F "payload_json=$JSON_PAYLOAD" \
-               "${{ secrets.DISCORD_WEBHOOK_URL }}?thread_id=1489296880713076869"
+               "${{ secrets.URL_WEBHOOK_OPERATOR }}?thread_id=1489296880713076869"
