@@ -60,11 +60,51 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: "Step 7: Upload to Discord Thread"
+      - name: "Step 7: Upload to Discord Thread with Premium Embed"
         run: |
           JAR_FILE=$(ls target/Puk3pFlyFix-*.jar | head -n 1)
+          JAR_NAME=$(basename "$JAR_FILE")
+          
+          JSON_PAYLOAD=$(cat <<EOF
+          {
+            "username": "Puk3p CI/CD",
+            "avatar_url": "https://cdn-icons-png.flaticon.com/512/5968/5968705.png",
+            "embeds": [
+              {
+                "title": "✨ Puk3pFlyFix — Fresh Build Available",
+                "description": "**Deployment completed successfully**\nA new plugin version has just been generated and uploaded automatically.",
+                "color": 10181046,
+                "fields": [
+                  {
+                    "name": "🔖 Version",
+                    "value": "`${{ steps.version.outputs.VERSION }}`",
+                    "inline": true
+                  },
+                  {
+                    "name": "📂 File",
+                    "value": "`$JAR_NAME`",
+                    "inline": true
+                  },
+                  {
+                    "name": "⚙️ Pipeline",
+                    "value": "`GitHub Actions`",
+                    "inline": true
+                  }
+                ],
+                "thumbnail": {
+                  "url": "https://cdn-icons-png.flaticon.com/512/337/337946.png"
+                },
+                "footer": {
+                  "text": "Puk3p Automated Build System"
+                },
+                "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+              }
+            ]
+          }
+          EOF
+          )
           
           curl -X POST \
                -F "file=@$JAR_FILE" \
-               -F "content=🚀 Un nou release pentru **Puk3pFlyFix** (${{ steps.version.outputs.VERSION }}) este gata și poate fi descărcat!" \
-               "${{ secrets.URL_WEBHOOK_OPERATOR }}?thread_id=1489296880713076869"
+               -F "payload_json=$JSON_PAYLOAD" \
+               "${{ secrets.DISCORD_WEBHOOK_URL }}?thread_id=1489296880713076869"
