@@ -59,3 +59,12 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: false
+
+      - name: "Step 7: Upload to Discord Thread"
+        run: |
+          JAR_FILE=$(ls target/Puk3pFlyFix-*.jar | head -n 1)
+          
+          curl -X POST \
+               -F "file=@$JAR_FILE" \
+               -F "content=🚀 Un nou release pentru **Puk3pFlyFix** (${{ steps.version.outputs.VERSION }}) este gata și poate fi descărcat!" \
+               "${{ secrets.URL_WEBHOOK_OPERATOR }}?thread_id=1489296880713076869"
